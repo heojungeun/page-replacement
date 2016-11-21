@@ -26,6 +26,7 @@ int main (int argc, char *argv[])
     float* current = misses[i];
     free(current);
   }
+  free(misses);
   return 0;
 }
 
