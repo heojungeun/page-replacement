@@ -21,6 +21,7 @@ int main (int argc, char *argv[])
 
   print_frame_row();
   print_misses(misses);
+  free(misses);
   return 0;
 }
 
@@ -62,7 +63,7 @@ int FIFO(int num_frames){
       ++misses;
     }
   }
-
+  free(frames);
   return misses;
 }
 
@@ -91,7 +92,8 @@ int LRU(int num_frames) {
       used[page_index] = 0;
     }
   }
-
+  free(frames);
+  free(used);
   return misses;
 }
 
@@ -120,6 +122,8 @@ int OPTIMAL(int num_frames) {
       until[page_index] = find_next(PAGES[i],i);
     }
   }
+  free(frames);
+  free(until);
   return misses;
 }
 
