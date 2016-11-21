@@ -15,18 +15,20 @@ int main (int argc, char *argv[])
   }
 
   for (i = 0; i < NUM_OF_ALGOS; ++i){
-    for (j = 1; j < MAX_FRAMES+1; ++j) {
-      misses[i][j] = wrapper(i,j);
+    for (j = 0; j < MAX_FRAMES; ++j) {
+      misses[i][j] = wrapper(i,j+1);
     }
   }
 
   print_frame_row();
   print_misses(misses);
+
   for (i = 0; i < NUM_OF_ALGOS; ++i) {
     float* current = misses[i];
     free(current);
   }
   free(misses);
+
   return 0;
 }
 
@@ -184,20 +186,13 @@ int find_next(int page, int current) {
   return INT_MAX;
 }
 
-void print_array(int *frames, int num_frames){
-  int i;
-  for (i = 0; i < num_frames; ++i) {
-    printf("%i\t", frames[i]);
-  }
-  printf("\n");
-}
-
 void print_frame_row() {
-  printf("     ");
+  printf("FRAMES");
   int i;
   for (i = 1; i <= 7; ++i) {
     printf("\t  %i", i);
   }
+  printf("\n");
   printf("\n");
 }
 
@@ -213,9 +208,9 @@ void print_misses(float **misses) {
     else {
       printf("OPT :\t");
     }
-    for (j = 1; j <= MAX_FRAMES; ++j) {
+    for (j = 0; j < MAX_FRAMES; ++j) {
       printf("%.2f\t", misses[i][j]);
-      if ( j == MAX_FRAMES) {
+      if ( j == MAX_FRAMES-1) {
         printf("\n");
       }
     }
