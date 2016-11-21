@@ -6,9 +6,10 @@
 
 int main (int argc, char *argv[])
 {
-  float *misses[NUM_OF_ALGOS];
 
-  int i, j;
+  float **misses = (float **)malloc(sizeof(float*)*NUM_OF_ALGOS);
+  
+  int i,j;
   for (i = 0; i < NUM_OF_ALGOS; ++i) {
     misses[i] = (float *)malloc(sizeof(float)*MAX_FRAMES);
   }
@@ -21,7 +22,10 @@ int main (int argc, char *argv[])
 
   print_frame_row();
   print_misses(misses);
-  free(misses);
+  for (i = 0; i < NUM_OF_ALGOS; ++i) {
+    float* current = misses[i];
+    free(current);
+  }
   return 0;
 }
 
